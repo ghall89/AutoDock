@@ -1,8 +1,10 @@
 import AppKit
 import Foundation
 import CoreGraphics
+import SwiftUI
 
 class DisplayManager: ObservableObject {
+	@AppStorage("minWidthToShowDock") private var minWidthToShowDock = 2000.0
 	@Published var currentDisplays: [CGRect] = []
 	
 	init() {
@@ -34,7 +36,7 @@ class DisplayManager: ObservableObject {
 			displays.append($0.frame)
 		}
 		
-		if displays.filter({ $0.width > 2000 }).count >= 1 {
+		if displays.filter({ $0.width >= minWidthToShowDock }).count >= 1 {
 			toggleDockVisibility(hidden: false)
 		} else {
 			toggleDockVisibility(hidden: true)
