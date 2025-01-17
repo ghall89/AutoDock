@@ -3,6 +3,7 @@ import LaunchAtLogin
 
 struct SettingsView: View {
 	@AppStorage("minWidthToShowDock") private var minWidthToShowDock = 2000.0
+	@EnvironmentObject var displayManager: DisplayManager
 	
 	let predefinedSizes = [
 		1000.0,
@@ -16,10 +17,15 @@ struct SettingsView: View {
 				ForEach(predefinedSizes, id: \.self) { value in
 					Text(createLabel(value)).tag(value)
 				}
+				Divider()
+				ForEach(displayManager.currentDisplays, id: \.self) { value in
+					Text(createLabel(value.width)).tag(value.width)
+				}
 				if !predefinedSizes.contains(minWidthToShowDock) {
 					Divider()
 					Text(createLabel(minWidthToShowDock)).tag(minWidthToShowDock)
 				}
+
 			} label: {
 				Text("Minimum Display Size to Show Dock")
 			}

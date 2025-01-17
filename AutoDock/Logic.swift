@@ -1,32 +1,9 @@
-import AppKit
 import Foundation
-import CoreGraphics
-
-func detectDisplay() -> [CGRect] {
-	var displays = [CGRect]()
-	guard !NSScreen.screens.isEmpty else {
-		print("S3", "No displays are connected.")
-		return displays
-	}
-	
-	NSScreen.screens.forEach {
-		print($0.frame)
-		displays.append($0.frame)
-	}
-	
-	if displays.filter({ $0.width > 2000 }).count >= 1 {
-		toggleDockVisibility(hidden: false)
-	} else {
-		toggleDockVisibility(hidden: true)
-	}
-	
-	return displays
-}
 
 func toggleDockVisibility(hidden: Bool) {
 	let task = Process()
 	task.launchPath = "/usr/bin/defaults"
-	task.arguments = ["write", "com.apple.dock", "autohide", "-bool \(hidden.description)"]
+	task.arguments = ["write", "com.apple.dock", "autohide", "-bool", hidden.description]
 	
 	let killDockTask = Process()
 	killDockTask.launchPath = "/usr/bin/killall"
