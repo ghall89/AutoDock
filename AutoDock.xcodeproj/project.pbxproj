@@ -8,8 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		D3FC45312D39E30600C6AF7E /* LaunchAtLogin in Frameworks */ = {isa = PBXBuildFile; productRef = D3FC45302D39E30600C6AF7E /* LaunchAtLogin */; };
-		D3FC45332D39E7BE00C6AF7E /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = D3FC45322D39E7B800C6AF7E /* README.md */; };
-		D3FC45352D39E7D800C6AF7E /* LICENSE.md in Resources */ = {isa = PBXBuildFile; fileRef = D3FC45342D39E7D200C6AF7E /* LICENSE.md */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -125,8 +123,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D3FC45352D39E7D800C6AF7E /* LICENSE.md in Resources */,
-				D3FC45332D39E7BE00C6AF7E /* README.md in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -135,7 +131,7 @@
 /* Begin PBXShellScriptBuildPhase section */
 		D3BAD0CB2D3A90D3002A0E88 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
+			buildActionMask = 12;
 			files = (
 			);
 			inputFileListPaths = (
@@ -305,7 +301,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 15.0;
-				MARKETING_VERSION = 1.0.0;
+				MARKETING_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ghalldev.AutoDock;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -337,7 +333,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 15.0;
-				MARKETING_VERSION = 1.0.0;
+				MARKETING_VERSION = 1.0.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ghalldev.AutoDock;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
