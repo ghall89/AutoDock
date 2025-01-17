@@ -66,6 +66,7 @@
 				D32510562D395E8000EEEF87 /* Sources */,
 				D32510572D395E8000EEEF87 /* Frameworks */,
 				D32510582D395E8000EEEF87 /* Resources */,
+				D3BAD0CB2D3A90D3002A0E88 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -130,6 +131,26 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		D3BAD0CB2D3A90D3002A0E88 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [ \"${CONFIGURATION}\" = \"Release\" ]; then\n    # Use full path to Git\n    GIT=\"/usr/bin/git\"\n    \n    # Check if we're in a Git repository\n    if [ -d \".git\" ] || git rev-parse --git-dir > /dev/null 2>&1; then\n        buildNumber=$(\"$GIT\" rev-list --count HEAD)\n        \n        # Path to Info.plist\n        INFO_PLIST=\"${TARGET_BUILD_DIR}/${INFOPLIST_PATH}\"\n        \n        # Check if Info.plist exists in the expected location\n        if [ -f \"$INFO_PLIST\" ]; then\n            # Update CFBundleVersion using defaults command\n            defaults write \"$INFO_PLIST\" CFBundleVersion -string \"$buildNumber\"\n            echo \"Build number updated to $buildNumber\"\n        else\n            echo \"Error: Info.plist not found at $INFO_PLIST\"\n            exit 1\n        fi\n    else\n        echo \"Error: Not in a Git repository\"\n        exit 1\n    fi\nelse\n    echo \"Not a release build, skipping build number update\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		D32510562D395E8000EEEF87 /* Sources */ = {
