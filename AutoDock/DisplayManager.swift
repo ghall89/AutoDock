@@ -1,4 +1,5 @@
 import AppKit
+import Combine
 import CoreGraphics
 import Foundation
 import SwiftUI
@@ -12,15 +13,16 @@ class DisplayManager: ObservableObject {
 		detectDisplay()
 	}
 
+	private var cancellables = Set<AnyCancellable>()
+
 	private func setupDisplayChangeListener() {
-		NotificationCenter.default.addObserver(
-			forName: NSApplication.didChangeScreenParametersNotification,
-			object: nil,
-			queue: .main
-		) { _ in
-			print("Display configuration changed.")
-			self.detectDisplay()
-		}
+		NotificationCenter.default.publisher(for: NSApplication.didChangeScreenParametersNotification)
+			.receive(on: DispatchQueue.global(qos: .default))
+			.sink { _ in
+				print("Display configuration changed.")
+				self.detectDisplay()
+			}
+			.store(in: &cancellables)
 	}
 
 	private func detectDisplay() {
