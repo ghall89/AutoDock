@@ -1,18 +1,18 @@
 import AppKit
-import Foundation
 import CoreGraphics
+import Foundation
 import SwiftUI
 
 class DisplayManager: ObservableObject {
 	@AppStorage("minWidthToShowDock") private var minWidthToShowDock = 2000.0
-	@Published var currentDisplays: [CGRect] = []
-	
+	@Published var currentDisplays: [NSScreen] = []
+
 	init() {
 		setupDisplayChangeListener()
 		detectDisplay()
 	}
-	
-	func setupDisplayChangeListener() {
+
+	private func setupDisplayChangeListener() {
 		NotificationCenter.default.addObserver(
 			forName: NSApplication.didChangeScreenParametersNotification,
 			object: nil,
@@ -22,45 +22,72 @@ class DisplayManager: ObservableObject {
 			self.detectDisplay()
 		}
 	}
-	
-	func detectDisplay() {
-		var displays = [CGRect]()
+
+	private func detectDisplay() {
+		var displays = [NSScreen]()
 		guard !NSScreen.screens.isEmpty else {
 			print("No displays are connected.")
-			self.currentDisplays = displays
+			currentDisplays = displays
 			return
 		}
-		
-		NSScreen.screens.forEach {
-			print($0.frame)
-			displays.append($0.frame)
+
+		for screen in NSScreen.screens {
+			displays.append(screen)
 		}
-		
-		if displays.filter({ $0.width >= minWidthToShowDock }).count >= 1 {
+
+		if minWidthToShowDock == 0.0 {
+			print("Dock not updated")
+		} else if displays.filter({ $0.frame.width >= minWidthToShowDock }).count >= 1 {
 			toggleDockVisibility(hidden: false)
 		} else {
 			toggleDockVisibility(hidden: true)
 		}
-		
-		self.currentDisplays = displays
+
+		currentDisplays = displays
 	}
-	
-	func toggleDockVisibility(hidden: Bool) {
-		let task = Process()
-		task.launchPath = "/usr/bin/defaults"
-		task.arguments = ["write", "com.apple.dock", "autohide", "-bool", hidden.description]
-		
+
+	private func toggleDockVisibility(hidden: Bool) {
+		// don't bother updating dock autohide setting if it matches the new value
+		let readTask = Process()
+		readTask.launchPath = "/usr/bin/defaults"
+		readTask.arguments = ["read", "com.apple.dock", "autohide"]
+
+		let pipe = Pipe()
+		readTask.standardOutput = pipe
+
+		do {
+			try readTask.run()
+			readTask.waitUntilExit()
+
+			let data = pipe.fileHandleForReading.readDataToEndOfFile()
+			if let output = String(data: data, encoding: .utf8) {
+				let trimmedOutput = output.trimmingCharacters(in: .whitespacesAndNewlines)
+				let dockIsCurrentlyHidden = trimmedOutput == "1"
+				print(dockIsCurrentlyHidden)
+				if hidden == dockIsCurrentlyHidden {
+					print("Dock not updated")
+					return
+				}
+			}
+		} catch {
+			print("Failed to read Dock settings: \(error)")
+		}
+
+		let writeTask = Process()
+		writeTask.launchPath = "/usr/bin/defaults"
+		writeTask.arguments = ["write", "com.apple.dock", "autohide", "-bool", hidden.description]
+
 		let killDockTask = Process()
 		killDockTask.launchPath = "/usr/bin/killall"
 		killDockTask.arguments = ["Dock"]
-		
+
 		do {
-			try task.run()
-			task.waitUntilExit()
-			
+			try writeTask.run()
+			writeTask.waitUntilExit()
+
 			try killDockTask.run()
 			killDockTask.waitUntilExit()
-			
+
 			print(hidden ? "Dock is now hidden." : "Dock is now visible.")
 		} catch {
 			print("Failed to update Dock settings: \(error)")

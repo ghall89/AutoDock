@@ -2,32 +2,25 @@ import SwiftUI
 import LaunchAtLogin
 
 struct SettingsView: View {
-	@AppStorage("minWidthToShowDock") private var minWidthToShowDock = 2000.0
+	@AppStorage("minWidthToShowDock") private var minWidthToShowDock = 0.0
 	@EnvironmentObject var displayManager: DisplayManager
-	
-	let predefinedSizes = [
-		1000.0,
-		2000.0,
-		3000.0
-	]
 	
 	var body: some View {
 		Form {
 			Picker(selection: $minWidthToShowDock) {
-				ForEach(predefinedSizes, id: \.self) { value in
-					Text(createLabel(value)).tag(value)
+				ForEach(displayManager.currentDisplays, id: \.self) { display in
+					let displayName = display.localizedName
+					
+					Text("\(createLabel(display.frame.width)) - \(displayName)").tag(Double(display.frame.width))
 				}
-				Divider()
-				ForEach(displayManager.currentDisplays, id: \.self) { value in
-					Text(createLabel(value.width)).tag(value.width)
-				}
-				if !predefinedSizes.contains(minWidthToShowDock) {
+				if displayManager.currentDisplays.count(where: { $0.frame.width == minWidthToShowDock }) == 0 {
 					Divider()
 					Text(createLabel(minWidthToShowDock)).tag(minWidthToShowDock)
 				}
-
+				Divider()
+				Text("None").tag(0.0)
 			} label: {
-				Text("Minimum Display Size to Show Dock")
+				Text("Dock Display Threshold")
 			}
 			LaunchAtLogin.Toggle()
 		}

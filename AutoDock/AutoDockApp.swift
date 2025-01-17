@@ -7,10 +7,6 @@ struct AutoDockApp: App {
 
 	var body: some Scene {
 		MenuBarExtra("AutoDock", systemImage: "menubar.dock.rectangle", content: {
-			ForEach(displayManager.currentDisplays, id: \.self) { display in
-				Text(display.width.description)
-			}
-			Divider()
 			Button("Settings...") {
 				openWindow(id: "settings")
 			}
