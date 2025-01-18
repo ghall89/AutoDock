@@ -42,3 +42,4 @@ Alternatively, you can [manually download](https://github.com/ghall89/AutoDock/r
 ## Package Dependencies
 
 - [LaunchAtLogin](https://github.com/sindresorhus/LaunchAtLogin-Modern)
+- [Sparkle](https://github.com/sparkle-project/Sparkle)

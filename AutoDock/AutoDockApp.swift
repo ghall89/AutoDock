@@ -1,9 +1,16 @@
+import Sparkle
 import SwiftUI
 
 @main
 struct AutoDockApp: App {
 	@Environment(\.openWindow) private var openWindow
 	@StateObject private var displayManager = DisplayManager()
+
+	private let updaterController: SPUStandardUpdaterController
+
+	init() {
+		updaterController = SPUStandardUpdaterController(startingUpdater: true, updaterDelegate: nil, userDriverDelegate: nil)
+	}
 
 	var body: some Scene {
 		MenuBarExtra("AutoDock", systemImage: "menubar.dock.rectangle", content: {
@@ -12,9 +19,10 @@ struct AutoDockApp: App {
 				Button("About") {
 					NSApp.orderFrontStandardAboutPanel()
 				}
+				CheckForUpdatesView(updater: updaterController.updater)
 				Divider()
 				Link("Submit GitHub Issue",
-						 destination: URL(string: "https://github.com/ghall89/AutoDock/issues/new?template=Blank+issue")!)
+				     destination: URL(string: "https://github.com/ghall89/AutoDock/issues/new?template=Blank+issue")!)
 			}
 			Divider()
 			Button("Quit AutoDock") {
@@ -28,11 +36,11 @@ struct AutoDockApp: App {
 		}
 		.windowResizability(.contentSize)
 	}
-	
+
 	private func openSettings() {
 		openWindow(id: "settings")
-		
-		if let window = NSApplication.shared.windows.first(where: { $0.identifier?.rawValue == "settings"  }) {
+
+		if let window = NSApplication.shared.windows.first(where: { $0.identifier?.rawValue == "settings" }) {
 			window.makeKeyAndOrderFront(nil)
 			NSApp.activate(ignoringOtherApps: true)
 		}

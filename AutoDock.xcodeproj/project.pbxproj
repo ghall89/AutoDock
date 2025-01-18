@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D3DA13DE2D3C177300B6FFE0 /* Sparkle in Frameworks */ = {isa = PBXBuildFile; productRef = D3DA13DD2D3C177300B6FFE0 /* Sparkle */; };
 		D3FC45312D39E30600C6AF7E /* LaunchAtLogin in Frameworks */ = {isa = PBXBuildFile; productRef = D3FC45302D39E30600C6AF7E /* LaunchAtLogin */; };
 /* End PBXBuildFile section */
 
@@ -16,9 +17,22 @@
 		D3FC45342D39E7D200C6AF7E /* LICENSE.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = LICENSE.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		D3DA13E02D3C1E8000B6FFE0 /* Exceptions for "AutoDock" folder in "AutoDock" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = D32510592D395E8000EEEF87 /* AutoDock */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		D325105C2D395E8000EEEF87 /* AutoDock */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				D3DA13E02D3C1E8000B6FFE0 /* Exceptions for "AutoDock" folder in "AutoDock" target */,
+			);
 			path = AutoDock;
 			sourceTree = "<group>";
 		};
@@ -30,6 +44,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D3FC45312D39E30600C6AF7E /* LaunchAtLogin in Frameworks */,
+				D3DA13DE2D3C177300B6FFE0 /* Sparkle in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -76,6 +91,7 @@
 			name = AutoDock;
 			packageProductDependencies = (
 				D3FC45302D39E30600C6AF7E /* LaunchAtLogin */,
+				D3DA13DD2D3C177300B6FFE0 /* Sparkle */,
 			);
 			productName = Dockie;
 			productReference = D325105A2D395E8000EEEF87 /* AutoDock.app */;
@@ -107,6 +123,7 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				D3FC452F2D39E30600C6AF7E /* XCRemoteSwiftPackageReference "LaunchAtLogin-Modern" */,
+				D3DA13DC2D3C177300B6FFE0 /* XCRemoteSwiftPackageReference "Sparkle" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = D325105B2D395E8000EEEF87 /* Products */;
@@ -292,6 +309,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = AutoDock/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = AutoDock;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_LSUIElement = YES;
@@ -324,6 +342,7 @@
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = AutoDock/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = AutoDock;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_LSUIElement = YES;
@@ -365,6 +384,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		D3DA13DC2D3C177300B6FFE0 /* XCRemoteSwiftPackageReference "Sparkle" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/sparkle-project/Sparkle";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.6.4;
+			};
+		};
 		D3FC452F2D39E30600C6AF7E /* XCRemoteSwiftPackageReference "LaunchAtLogin-Modern" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/sindresorhus/LaunchAtLogin-Modern";
@@ -376,6 +403,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		D3DA13DD2D3C177300B6FFE0 /* Sparkle */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D3DA13DC2D3C177300B6FFE0 /* XCRemoteSwiftPackageReference "Sparkle" */;
+			productName = Sparkle;
+		};
 		D3FC45302D39E30600C6AF7E /* LaunchAtLogin */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = D3FC452F2D39E30600C6AF7E /* XCRemoteSwiftPackageReference "LaunchAtLogin-Modern" */;
