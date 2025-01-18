@@ -1,7 +1,5 @@
 import AppKit
 import Combine
-import CoreGraphics
-import Foundation
 import SwiftUI
 
 class DisplayManager: ObservableObject {
@@ -17,7 +15,8 @@ class DisplayManager: ObservableObject {
 
 	private func setupDisplayChangeListener() {
 		NotificationCenter.default.publisher(for: NSApplication.didChangeScreenParametersNotification)
-			.receive(on: DispatchQueue.global(qos: .default))
+			.subscribe(on: DispatchQueue.global(qos: .default))
+			.receive(on: DispatchQueue.main)
 			.sink { _ in
 				print("Display configuration changed.")
 				self.detectDisplay()
@@ -50,6 +49,6 @@ class DisplayManager: ObservableObject {
 			toggleDockVisibility(hidden: true)
 		}
 
-		currentDisplays = displays
+		self.currentDisplays = displays
 	}
 }
