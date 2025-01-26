@@ -23,6 +23,8 @@ struct AutoDockApp: App {
 				Divider()
 				Link("Submit GitHub Issue",
 				     destination: URL(string: "https://github.com/ghall89/AutoDock/issues/new?template=Blank+issue")!)
+				Link("Support on Ko-Fi",
+						 destination: URL(string: "https://ko-fi.com/ghalldev")!)
 			}
 			Divider()
 			Button("Quit AutoDock") {
@@ -41,8 +43,7 @@ struct AutoDockApp: App {
 		openWindow(id: "settings")
 
 		if let window = NSApplication.shared.windows.first(where: { $0.identifier?.rawValue == "settings" }) {
-			window.makeKeyAndOrderFront(nil)
-			NSApp.activate(ignoringOtherApps: true)
+			window.level = .floating
 		}
 	}
 }
