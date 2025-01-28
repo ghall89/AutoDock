@@ -1,5 +1,3 @@
-import Foundation
-
 func toggleDockVisibility(hidden: Bool) {
 	// don't bother updating dock autohide setting if it matches the new value
 	let currentAutoHidePref = getDockAutohidePref()

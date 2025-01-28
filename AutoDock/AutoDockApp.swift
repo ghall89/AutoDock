@@ -24,7 +24,7 @@ struct AutoDockApp: App {
 				Link("Submit GitHub Issue",
 				     destination: URL(string: "https://github.com/ghall89/AutoDock/issues/new?template=Blank+issue")!)
 				Link("Support on Ko-Fi",
-						 destination: URL(string: "https://ko-fi.com/ghalldev")!)
+				     destination: URL(string: "https://ko-fi.com/ghalldev")!)
 			}
 			Divider()
 			Button("Quit AutoDock") {

@@ -16,6 +16,5 @@ func runAppleScript(script: String) -> String? {
 		print("Failed to create AppleScript.")
 	}
 	
-	print(result ?? "")
 	return result
 }
