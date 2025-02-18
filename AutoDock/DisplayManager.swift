@@ -7,37 +7,37 @@ class DisplayManager: ObservableObject {
 	@AppStorage("onlyOnPrimaryDisplay") var onlyOnPrimaryDisplay = true
 
 	@Published var connectedDisplays: [DisplayInfo] = []
-	@Published var displayHistory: [DisplayHistoryItem] = []
+//	@Published var displayHistory: [DisplayHistoryItem] = []
 
 	init() {
 		setupDisplayChangeListener()
 		detectDisplay()
-		getDisplayHistory()
+//		getDisplayHistory()
 	}
 
 	private var cancellables = Set<AnyCancellable>()
 	
-	private func getDisplayHistory() {
-		do {
-			displayHistory = try loadHistoryFromJSON()
-		} catch {
-			print("Could not load display history: \(error)")
-		}
-	}
+//	private func getDisplayHistory() {
+//		do {
+//			displayHistory = try loadHistoryFromJSON()
+//		} catch {
+//			print("Could not load display history: \(error)")
+//		}
+//	}
 	
-	private func saveDisplayHistory() {
-		var newHistory: [DisplayHistoryItem] = displayHistory
-		
-		connectedDisplays.forEach({ display in
-			if let index = newHistory.firstIndex(where: { isSameDisplay(displayOne: $0.displayInfo, displayTwo: display) }) {
-				newHistory[index].lastConnected = Date()
-			} else {
-				newHistory.append(DisplayHistoryItem(displayInfo: display, lastConnected: Date()))
-			}
-		})
-		
-		storeHistoryAsJSON(history: newHistory)
-	}
+//	private func saveDisplayHistory() {
+//		var newHistory: [DisplayHistoryItem] = displayHistory
+//		
+//		connectedDisplays.forEach({ display in
+//			if let index = newHistory.firstIndex(where: { isSameDisplay(displayOne: $0.displayInfo, displayTwo: display) }) {
+//				newHistory[index].lastConnected = Date()
+//			} else {
+//				newHistory.append(DisplayHistoryItem(displayInfo: display, lastConnected: Date()))
+//			}
+//		})
+//		
+//		storeHistoryAsJSON(history: newHistory)
+//	}
 
 	private func setupDisplayChangeListener() {
 		NotificationCenter.default.publisher(for: NSApplication.didChangeScreenParametersNotification)
@@ -84,7 +84,7 @@ class DisplayManager: ObservableObject {
 			connectedDisplays.append(displayToAdd)
 		}
 		
-		saveDisplayHistory()
+//		saveDisplayHistory()
 	}
 	
 	private func isPrimaryDisplay(_ screen: NSScreen) -> Bool {
