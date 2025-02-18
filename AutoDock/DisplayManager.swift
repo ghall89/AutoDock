@@ -87,8 +87,6 @@ class DisplayManager: ObservableObject {
 		saveDisplayHistory()
 	}
 	
-	
-
 	private func isPrimaryDisplay(_ screen: NSScreen) -> Bool {
 		return screen.frame.origin == CGPoint(x: 0, y: 0)
 	}
