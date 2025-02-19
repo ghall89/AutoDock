@@ -8,6 +8,7 @@ class DisplayManager: ObservableObject {
 
 	@Published var connectedDisplays: [DisplayInfo] = []
 //	@Published var displayHistory: [DisplayHistoryItem] = []
+	@Published var systemEventsPermitted: Bool = true
 
 	init() {
 		setupDisplayChangeListener()
@@ -16,7 +17,7 @@ class DisplayManager: ObservableObject {
 	}
 
 	private var cancellables = Set<AnyCancellable>()
-	
+
 //	private func getDisplayHistory() {
 //		do {
 //			displayHistory = try loadHistoryFromJSON()
@@ -24,10 +25,10 @@ class DisplayManager: ObservableObject {
 //			print("Could not load display history: \(error)")
 //		}
 //	}
-	
+
 //	private func saveDisplayHistory() {
 //		var newHistory: [DisplayHistoryItem] = displayHistory
-//		
+//
 //		connectedDisplays.forEach({ display in
 //			if let index = newHistory.firstIndex(where: { isSameDisplay(displayOne: $0.displayInfo, displayTwo: display) }) {
 //				newHistory[index].lastConnected = Date()
@@ -35,7 +36,7 @@ class DisplayManager: ObservableObject {
 //				newHistory.append(DisplayHistoryItem(displayInfo: display, lastConnected: Date()))
 //			}
 //		})
-//		
+//
 //		storeHistoryAsJSON(history: newHistory)
 //	}
 
@@ -80,14 +81,55 @@ class DisplayManager: ObservableObject {
 				frame: screen.frame,
 				primaryDisplay: isPrimaryDisplay(screen)
 			)
-			
+
 			connectedDisplays.append(displayToAdd)
 		}
-		
+
 //		saveDisplayHistory()
 	}
-	
+
 	private func isPrimaryDisplay(_ screen: NSScreen) -> Bool {
 		return screen.frame.origin == CGPoint(x: 0, y: 0)
+	}
+
+	private func toggleDockVisibility(hidden: Bool) {
+		// don't bother updating dock autohide setting if it matches the new value
+		let currentAutoHidePref = getDockAutohidePref()
+
+		if currentAutoHidePref == nil {
+			return
+		}
+
+		if currentAutoHidePref != hidden {
+			let script = """
+				tell application "System Events"
+				 set autohide of dock preferences to \(hidden.description)
+				end tell
+				"""
+
+			do {
+				_ = try runAppleScript(script: script)
+			} catch {
+				print(error)
+			}
+		}
+	}
+
+	private func getDockAutohidePref() -> Bool? {
+		let script = """
+			tell application "System Events"
+			 get autohide of dock preferences
+			end tell
+			"""
+
+		do {
+			if let boolString = try runAppleScript(script: script) {
+				return boolString == "true"
+			}
+		} catch {
+			systemEventsPermitted = false
+		}
+
+		return nil
 	}
 }

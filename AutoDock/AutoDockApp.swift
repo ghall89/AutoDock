@@ -6,6 +6,8 @@ struct AutoDockApp: App {
 	@Environment(\.openWindow) private var openWindow
 	@StateObject private var displayManager = DisplayManager()
 
+	@State private var showAlert: Bool = false
+
 	private let updaterController: SPUStandardUpdaterController
 
 	init() {
@@ -14,6 +16,11 @@ struct AutoDockApp: App {
 
 	var body: some Scene {
 		MenuBarExtra("AutoDock", systemImage: "menubar.dock.rectangle", content: {
+			if displayManager.systemEventsPermitted == false {
+				Text("Unable to get dock status...")
+				Text("Please ensure AutoDock permission to automate system events.")
+				Divider()
+			}
 			Button("Settings...", action: openSettings)
 			Menu("More") {
 				Button("About") {
@@ -30,11 +37,17 @@ struct AutoDockApp: App {
 			Button("Quit AutoDock") {
 				NSApplication.shared.terminate(nil)
 			}
+			.keyboardShortcut("Q", modifiers: .command)
 		})
 
 		Window("Settings", id: "settings") {
 			SettingsView()
 				.environmentObject(displayManager)
+				.alert("AutoDock requires permission to automate system events in order to work.", isPresented: $showAlert, actions: {
+					Button("Ok", action: {
+						showAlert = false
+					})
+				})
 		}
 		.windowResizability(.contentSize)
 	}

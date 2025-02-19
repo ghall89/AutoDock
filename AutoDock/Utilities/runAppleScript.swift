@@ -1,20 +1,23 @@
 import AppleScriptObjC
 import Foundation
 
-func runAppleScript(script: String) -> String? {
+enum AppleScriptError: Error {
+	case scriptCompilationFailed
+	case executionFailed(String)
+}
+
+func runAppleScript(script: String) throws -> String? {
 	var result: String?
-	
-	if let appleScript = NSAppleScript(source: script) {
-		var error: NSDictionary?
-		
-		result = appleScript.executeAndReturnError(&error).stringValue
-		if let error = error {
-			print(error)
-		}
-		
-	} else {
-		print("Failed to create AppleScript.")
+	var error: NSDictionary?
+
+	guard let appleScript = NSAppleScript(source: script) else {
+		throw AppleScriptError.scriptCompilationFailed
 	}
-	
+
+	result = appleScript.executeAndReturnError(&error).stringValue
+	if let error = error {
+		throw AppleScriptError.executionFailed(error.description)
+	}
+
 	return result
 }
