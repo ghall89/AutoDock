@@ -3,7 +3,7 @@ import Combine
 import SwiftUI
 
 class DisplayManager: ObservableObject {
-	@AppStorage("minWidthToShowDock") var minWidthToShowDock = 0.0
+	@AppStorage("minResolutionToShowDock") var minResolutionToShowDock: CGRect = .zero
 	@AppStorage("onlyOnPrimaryDisplay") var onlyOnPrimaryDisplay = true
 
 	@Published var connectedDisplays: [DisplayInfo] = []
@@ -66,9 +66,9 @@ class DisplayManager: ObservableObject {
 			return
 		}
 
-		if minWidthToShowDock == 0.0 {
+		if minResolutionToShowDock == .zero {
 			print("Dock not updated")
-		} else if NSScreen.screens.filter({ $0.frame.width >= minWidthToShowDock }).count >= 1 {
+		} else if NSScreen.screens.filter({ $0.frame.width >= minResolutionToShowDock.width }).count >= 1 {
 			toggleDockVisibility(hidden: false)
 		} else {
 			toggleDockVisibility(hidden: true)

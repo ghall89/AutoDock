@@ -10,7 +10,7 @@ A MacOS menubar utility for automatically hiding/showing the dock based on the s
 
 ### Requirements
 
-- An Intel or Apple Silicon Mac running MacOS 15 Sequoia or later
+- An Intel or Apple Silicon Mac running macOS 15 Sequoia or later
 
 _Note: It is entirely possible the app can be compiled to run on older versions of MacOS, I'm just unable to test. Feel free to try compiling for older systems and submit a pull request with any changes._
 
@@ -22,6 +22,10 @@ If you prefer to use homebrew...
 
 - Add the 'ghall89/tap' tap with `brew tap ghall89/tap`
 - Install AutoDock with `brew install --cask autodock`
+
+### First Launch
+
+When launching AutoDock for the first time, you will be asked by macOS to grant automation permissions. This is required for setting the Dock's visibility, and AutoDock will not function without it.
 
 ## Compile From Source
 
@@ -38,6 +42,14 @@ If you prefer to use homebrew...
 3. Wait for package dependencies to download
 4. From the menubar, go to `Product → Archive`
 5. When archive is complete, click `Distribute App` and select `Direct Distribution`, `Debug`, or `Custom` and follow the prompts
+
+## Troubleshooting
+
+Before submitting an issue, please check if your issue is described here.
+
+### AutoDock doesn't show/hide the Dock as expected
+
+It's likely AutoDock doesn't have permission to update the Dock's settings. Go to System Settings, navigate to Privacy & Security > Automation > AutoDock, and ensure the toggle for System Events is turned on, then quit and re-open AutoDock.
 
 ## Dependencies
 

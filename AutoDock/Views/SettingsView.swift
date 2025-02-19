@@ -2,30 +2,30 @@ import LaunchAtLogin
 import SwiftUI
 
 struct SettingsView: View {
-	@AppStorage("minWidthToShowDock") private var minWidthToShowDock = 0.0
+	@AppStorage("minResolutionToShowDock") private var minResolutionToShowDock: CGRect = .zero
 	@AppStorage("autoUpdate") private var autoUpdate = true
 	@EnvironmentObject var displayManager: DisplayManager
 
 	var body: some View {
 		Form {
 			Section {
-				Picker(selection: $minWidthToShowDock) {
+				Picker(selection: $minResolutionToShowDock) {
 					ForEach(displayManager.connectedDisplays, id: \.self) { display in
 						let displayName = display.localizedName
 
-						Text("\(createLabel(display.frame.width)) - \(displayName)").tag(Double(display.frame.width))
+						Text("\(createLabel(display.frame)) - \(displayName)").tag(display.frame)
 					}
 					if
-						displayManager.connectedDisplays.count(where: { $0.frame.width == minWidthToShowDock }) == 0
-						&& minWidthToShowDock != 0.0
+						displayManager.connectedDisplays.count(where: { $0.frame.width == minResolutionToShowDock.width }) == 0
+							&& minResolutionToShowDock != .zero
 					{
 						Divider()
-						Text(createLabel(minWidthToShowDock)).tag(minWidthToShowDock)
+						Text(createLabel(minResolutionToShowDock)).tag(minResolutionToShowDock)
 					}
 					Divider()
 					Text("None").tag(0.0)
 				} label: {
-					Text("Show Dock on displays wider than...")
+					Text("Hide dock at display resolutions lower than...")
 				}
 
 				LaunchAtLogin.Toggle()
@@ -47,10 +47,10 @@ struct SettingsView: View {
 			}
 		}
 		.formStyle(.grouped)
-		.frame(width: 400, height: 190)
+		.frame(width: 400, height: 200)
 	}
 
-	private func createLabel(_ value: Double) -> String {
-		return "\(Int(value))pts"
+	private func createLabel(_ value: CGRect) -> String {
+		return "\(Int(value.width))x\(Int(value.height))"
 	}
 }
