@@ -14,14 +14,14 @@ A MacOS menubar utility for automatically hiding/showing the dock based on the s
 
 _Note: It is entirely possible the app can be compiled to run on older versions of MacOS, I'm just unable to test. Feel free to try compiling for older systems and submit a pull request with any changes._
 
-### Download
+### Homebrew
 
-You can [manually download](https://github.com/ghall89/AutoDock/releases) the latest release of AutoDock.
-
-If you prefer to use homebrew...
+The suggested method for installing AutoDock is through Homebrew.
 
 - Add the 'ghall89/tap' tap with `brew tap ghall89/tap`
 - Install AutoDock with `brew install --cask autodock`
+
+Alternatively, you can [manually download](https://github.com/ghall89/AutoDock/releases) the latest release of AutoDock.
 
 ## Compile From Source
 
@@ -39,7 +39,7 @@ If you prefer to use homebrew...
 4. From the menubar, go to `Product → Archive`
 5. When archive is complete, click `Distribute App` and select `Direct Distribution`, `Debug`, or `Custom` and follow the prompts
 
-## Dependencies
+## Package Dependencies
 
 - [LaunchAtLogin](https://github.com/sindresorhus/LaunchAtLogin-Modern)
 - [Sparkle](https://github.com/sparkle-project/Sparkle)
