@@ -11,26 +11,24 @@ struct SettingsView: View {
 			Section {
 				Picker(selection: $minResolutionToShowDock) {
 					ForEach(displayManager.connectedDisplays, id: \.self) { display in
-						let displayName = display.localizedName
-
-						Text("\(createLabel(display.frame)) - \(displayName)").tag(display.frame)
+						Text("\(createLabel(display.frame))").tag(display.frame)
 					}
 					if
 						displayManager.connectedDisplays.count(where: { $0.frame.width == minResolutionToShowDock.width }) == 0
-							&& minResolutionToShowDock != .zero
+						&& minResolutionToShowDock != .zero
 					{
 						Divider()
 						Text(createLabel(minResolutionToShowDock)).tag(minResolutionToShowDock)
 					}
 					Divider()
-					Text("None").tag(0.0)
+					Text("None (Disables AutoDock)").tag(CGRect.zero)
 				} label: {
-					Text("Hide dock at display resolutions lower than...")
+					Text("Minimum screen resolution")
 				}
-
-				LaunchAtLogin.Toggle()
 			}
 			Section {
+				LaunchAtLogin.Toggle()
+
 				VStack(alignment: .leading) {
 					HStack {
 						Text("Permission to automate system events")

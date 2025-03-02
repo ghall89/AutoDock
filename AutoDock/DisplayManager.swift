@@ -62,6 +62,8 @@ class DisplayManager: ObservableObject {
 		// check if display parameters actually changed...
 		// this is to prevent the app from overriding the user
 		// if the Dock's autohide is toggled manually
+		print(connectedDisplays.map(\.localizedName))
+		print(NSScreen.screens.map(\.localizedName))
 		if connectedDisplays.map(\.localizedName) == NSScreen.screens.map(\.localizedName) {
 			return
 		}
@@ -74,7 +76,7 @@ class DisplayManager: ObservableObject {
 			toggleDockVisibility(hidden: true)
 		}
 
-		for screen in NSScreen.screens {
+		connectedDisplays = NSScreen.screens.map { screen in
 			let displayToAdd = DisplayInfo(
 				id: screen.description,
 				localizedName: screen.localizedName,
@@ -82,7 +84,7 @@ class DisplayManager: ObservableObject {
 				primaryDisplay: isPrimaryDisplay(screen)
 			)
 
-			connectedDisplays.append(displayToAdd)
+			return displayToAdd
 		}
 
 //		saveDisplayHistory()
