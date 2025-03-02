@@ -5,7 +5,7 @@ struct SettingsView: View {
 	@AppStorage("minResolutionToShowDock") private var minResolutionToShowDock: CGRect = .zero
 	@AppStorage("autoUpdate") private var autoUpdate = true
 	@EnvironmentObject var displayManager: DisplayManager
-
+	
 	var body: some View {
 		Form {
 			Section {

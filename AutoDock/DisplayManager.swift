@@ -17,6 +17,28 @@ class DisplayManager: ObservableObject {
 	}
 
 	private var cancellables = Set<AnyCancellable>()
+	
+//	private func getDisplayHistory() {
+//		do {
+//			displayHistory = try loadHistoryFromJSON()
+//		} catch {
+//			print("Could not load display history: \(error)")
+//		}
+//	}
+	
+//	private func saveDisplayHistory() {
+//		var newHistory: [DisplayHistoryItem] = displayHistory
+//		
+//		connectedDisplays.forEach({ display in
+//			if let index = newHistory.firstIndex(where: { isSameDisplay(displayOne: $0.displayInfo, displayTwo: display) }) {
+//				newHistory[index].lastConnected = Date()
+//			} else {
+//				newHistory.append(DisplayHistoryItem(displayInfo: display, lastConnected: Date()))
+//			}
+//		})
+//		
+//		storeHistoryAsJSON(history: newHistory)
+//	}
 
 //	private func getDisplayHistory() {
 //		do {
@@ -115,6 +137,12 @@ class DisplayManager: ObservableObject {
 				print(error)
 			}
 		}
+		
+//		saveDisplayHistory()
+	}
+	
+	private func isPrimaryDisplay(_ screen: NSScreen) -> Bool {
+		return screen.frame.origin == CGPoint(x: 0, y: 0)
 	}
 
 	private func getDockAutohidePref() -> Bool? {
