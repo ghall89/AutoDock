@@ -4,6 +4,7 @@ import SwiftUI
 
 class DisplayManager: ObservableObject {
 	@AppStorage("minResolutionToShowDock") var minResolutionToShowDock: CGRect = .zero
+	@AppStorage("alsoToggleMenubar") private var alsoToggleMenubar: Bool = false
 	@AppStorage("onlyOnPrimaryDisplay") var onlyOnPrimaryDisplay = true
 
 	@Published var connectedDisplays: [DisplayInfo] = []
@@ -72,8 +73,10 @@ class DisplayManager: ObservableObject {
 			print("Dock not updated")
 		} else if NSScreen.screens.filter({ $0.frame.width >= minResolutionToShowDock.width }).count >= 1 {
 			toggleDockVisibility(hidden: false)
+			toggleMenuBarVisibility(hidden: false)
 		} else {
 			toggleDockVisibility(hidden: true)
+			toggleMenuBarVisibility(hidden: true)
 		}
 
 		connectedDisplays = NSScreen.screens.map { screen in
@@ -109,6 +112,22 @@ class DisplayManager: ObservableObject {
 				end tell
 				"""
 
+			do {
+				_ = try runAppleScript(script: script)
+			} catch {
+				print(error)
+			}
+		}
+	}
+	
+	private func toggleMenuBarVisibility(hidden: Bool) {
+		if alsoToggleMenubar {
+			let script = """
+				tell application "System Events"
+					set autohide menu bar of dock preferences to \(hidden)
+				end tell
+				"""
+			
 			do {
 				_ = try runAppleScript(script: script)
 			} catch {

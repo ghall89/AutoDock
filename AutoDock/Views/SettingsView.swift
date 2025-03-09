@@ -3,6 +3,7 @@ import SwiftUI
 
 struct SettingsView: View {
 	@AppStorage("minResolutionToShowDock") private var minResolutionToShowDock: CGRect = .zero
+	@AppStorage("alsoToggleMenubar") private var alsoToggleMenubar: Bool = false
 	@AppStorage("autoUpdate") private var autoUpdate = true
 	@EnvironmentObject var displayManager: DisplayManager
 
@@ -25,6 +26,7 @@ struct SettingsView: View {
 				} label: {
 					Text("Minimum screen resolution")
 				}
+				Toggle("Also toggle Menu Bar", isOn: $alsoToggleMenubar)
 			}
 			Section {
 				LaunchAtLogin.Toggle()
@@ -45,7 +47,7 @@ struct SettingsView: View {
 			}
 		}
 		.formStyle(.grouped)
-		.frame(width: 400, height: 200)
+		.frame(width: 400, height: 240)
 	}
 
 	private func createLabel(_ value: CGRect) -> String {
