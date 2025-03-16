@@ -6,6 +6,8 @@ struct SettingsView: View {
 	@AppStorage("alsoToggleMenubar") private var alsoToggleMenubar: Bool = false
 	@AppStorage("autoUpdate") private var autoUpdate = true
 	@EnvironmentObject var displayManager: DisplayManager
+	
+	@State private var showSettingsHint: Bool = false
 
 	var body: some View {
 		Form {
@@ -27,7 +29,14 @@ struct SettingsView: View {
 					Text("Minimum screen resolution")
 				}
 				Toggle("Also toggle Menu Bar", isOn: $alsoToggleMenubar)
+				if showSettingsHint {
+					Text("Restart AutoDock or connect/disconnect a display to apply settings.")
+						.font(.footnote)
+						.transition(.slide)
+				}
 			}
+			.onChange(of: minResolutionToShowDock, showHint)
+			.onChange(of: alsoToggleMenubar, showHint)
 			Section {
 				LaunchAtLogin.Toggle()
 
@@ -47,10 +56,17 @@ struct SettingsView: View {
 			}
 		}
 		.formStyle(.grouped)
-		.frame(width: 400, height: 240)
+		.frame(width: 400, height: showSettingsHint ? 280 : 240)
+		.animation(.easeInOut, value: showSettingsHint)
 	}
 
 	private func createLabel(_ value: CGRect) -> String {
 		return "\(Int(value.width))x\(Int(value.height))"
+	}
+	
+	private func showHint() {
+		withAnimation {
+			showSettingsHint = true
+		}
 	}
 }
