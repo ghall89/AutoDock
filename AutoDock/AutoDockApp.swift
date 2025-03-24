@@ -1,5 +1,8 @@
 import Sparkle
 import SwiftUI
+import OSLog
+
+let logger = Logger(subsystem: "com.ghalldev.AutoDock", category: "autodock-logging")
 
 @main
 struct AutoDockApp: App {

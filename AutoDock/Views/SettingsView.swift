@@ -69,4 +69,10 @@ struct SettingsView: View {
 			showSettingsHint = true
 		}
 	}
+	
+	func openPrivacySecuritySettings() {
+		if let url = URL(string: "x-apple.systempreferences:com.apple.preference.security?Privacy_Automation") {
+			NSWorkspace.shared.open(url)
+		}
+	}
 }
