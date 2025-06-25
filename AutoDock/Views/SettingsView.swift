@@ -4,6 +4,8 @@ import SwiftUI
 struct SettingsView: View {
 	@AppStorage("minResolutionToShowDock") private var minResolutionToShowDock: CGRect = .zero
 	@AppStorage("autoUpdate") private var autoUpdate = true
+	@AppStorage("alsoToggleMenubar") var alsoToggleMenubar = false
+	
 	@EnvironmentObject var displayManager: DisplayManager
 
 	var body: some View {
@@ -27,6 +29,9 @@ struct SettingsView: View {
 				}
 			}
 			Section {
+				Toggle("Also toggle Menu Bar", isOn: $alsoToggleMenubar)
+			}
+			Section {
 				LaunchAtLogin.Toggle()
 
 				VStack(alignment: .leading) {
@@ -45,7 +50,7 @@ struct SettingsView: View {
 			}
 		}
 		.formStyle(.grouped)
-		.frame(width: 400, height: 200)
+		.frame(width: 400, height: 240)
 	}
 
 	private func createLabel(_ value: CGRect) -> String {

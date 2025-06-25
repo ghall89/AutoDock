@@ -5,40 +5,17 @@ import SwiftUI
 class DisplayManager: ObservableObject {
 	@AppStorage("minResolutionToShowDock") var minResolutionToShowDock: CGRect = .zero
 	@AppStorage("onlyOnPrimaryDisplay") var onlyOnPrimaryDisplay = true
+	@AppStorage("alsoToggleMenubar") var alsoToggleMenubar = false
 
 	@Published var connectedDisplays: [DisplayInfo] = []
-//	@Published var displayHistory: [DisplayHistoryItem] = []
 	@Published var systemEventsPermitted: Bool = true
 
 	init() {
 		setupDisplayChangeListener()
 		detectDisplay()
-//		getDisplayHistory()
 	}
 
 	private var cancellables = Set<AnyCancellable>()
-
-//	private func getDisplayHistory() {
-//		do {
-//			displayHistory = try loadHistoryFromJSON()
-//		} catch {
-//			print("Could not load display history: \(error)")
-//		}
-//	}
-
-//	private func saveDisplayHistory() {
-//		var newHistory: [DisplayHistoryItem] = displayHistory
-//
-//		connectedDisplays.forEach({ display in
-//			if let index = newHistory.firstIndex(where: { isSameDisplay(displayOne: $0.displayInfo, displayTwo: display) }) {
-//				newHistory[index].lastConnected = Date()
-//			} else {
-//				newHistory.append(DisplayHistoryItem(displayInfo: display, lastConnected: Date()))
-//			}
-//		})
-//
-//		storeHistoryAsJSON(history: newHistory)
-//	}
 
 	private func setupDisplayChangeListener() {
 		NotificationCenter.default.publisher(for: NSApplication.didChangeScreenParametersNotification)
@@ -71,9 +48,9 @@ class DisplayManager: ObservableObject {
 		if minResolutionToShowDock == .zero {
 			print("Dock not updated")
 		} else if NSScreen.screens.filter({ $0.frame.width >= minResolutionToShowDock.width }).count >= 1 {
-			toggleDockVisibility(hidden: false)
+			handleVisibility(hidden: false)
 		} else {
-			toggleDockVisibility(hidden: true)
+			handleVisibility(hidden: true)
 		}
 
 		connectedDisplays = NSScreen.screens.map { screen in
@@ -86,17 +63,22 @@ class DisplayManager: ObservableObject {
 
 			return displayToAdd
 		}
-
-//		saveDisplayHistory()
 	}
 
 	private func isPrimaryDisplay(_ screen: NSScreen) -> Bool {
 		return screen.frame.origin == CGPoint(x: 0, y: 0)
 	}
+	
+	private func handleVisibility(hidden: Bool) {
+		toggleVisibility(hidden: hidden, preference: .autohide)
+		if (alsoToggleMenubar) {
+			toggleVisibility(hidden: hidden, preference: .autohideMenuBar)
+		}
+	}
 
-	private func toggleDockVisibility(hidden: Bool) {
+	private func toggleVisibility(hidden: Bool, preference: DockPreference) {
 		// don't bother updating dock autohide setting if it matches the new value
-		let currentAutoHidePref = getDockAutohidePref()
+		let currentAutoHidePref = getCurrentPreference(preference)
 
 		if currentAutoHidePref == nil {
 			return
@@ -105,7 +87,7 @@ class DisplayManager: ObservableObject {
 		if currentAutoHidePref != hidden {
 			let script = """
 				tell application "System Events"
-				 set autohide of dock preferences to \(hidden.description)
+					set \(preference.rawValue) of dock preferences to \(hidden.description)
 				end tell
 				"""
 
@@ -117,10 +99,10 @@ class DisplayManager: ObservableObject {
 		}
 	}
 
-	private func getDockAutohidePref() -> Bool? {
+	private func getCurrentPreference(_ preference: DockPreference) -> Bool? {
 		let script = """
 			tell application "System Events"
-			 get autohide of dock preferences
+				get \(preference.rawValue) of dock preferences
 			end tell
 			"""
 
@@ -133,5 +115,10 @@ class DisplayManager: ObservableObject {
 		}
 
 		return nil
+	}
+
+	private enum DockPreference: String {
+		case autohide = "autohide"
+		case autohideMenuBar = "autohide menu bar"
 	}
 }
