@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		D3DA13DE2D3C177300B6FFE0 /* Sparkle in Frameworks */ = {isa = PBXBuildFile; productRef = D3DA13DD2D3C177300B6FFE0 /* Sparkle */; };
 		D3FC45312D39E30600C6AF7E /* LaunchAtLogin in Frameworks */ = {isa = PBXBuildFile; productRef = D3FC45302D39E30600C6AF7E /* LaunchAtLogin */; };
 /* End PBXBuildFile section */
 
@@ -44,7 +43,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				D3FC45312D39E30600C6AF7E /* LaunchAtLogin in Frameworks */,
-				D3DA13DE2D3C177300B6FFE0 /* Sparkle in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -90,7 +88,6 @@
 			name = AutoDock;
 			packageProductDependencies = (
 				D3FC45302D39E30600C6AF7E /* LaunchAtLogin */,
-				D3DA13DD2D3C177300B6FFE0 /* Sparkle */,
 			);
 			productName = Dockie;
 			productReference = D325105A2D395E8000EEEF87 /* AutoDock.app */;
@@ -122,7 +119,6 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				D3FC452F2D39E30600C6AF7E /* XCRemoteSwiftPackageReference "LaunchAtLogin-Modern" */,
-				D3DA13DC2D3C177300B6FFE0 /* XCRemoteSwiftPackageReference "Sparkle" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = D325105B2D395E8000EEEF87 /* Products */;
@@ -282,7 +278,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 120;
+				CURRENT_PROJECT_VERSION = 121;
 				DEVELOPMENT_ASSET_PATHS = "\"AutoDock/Preview Content\"";
 				DEVELOPMENT_TEAM = B3DFV278UN;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -299,7 +295,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 15.0;
-				MARKETING_VERSION = 1.2.0;
+				MARKETING_VERSION = 1.2.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ghalldev.AutoDock;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -316,7 +312,7 @@
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-				CURRENT_PROJECT_VERSION = 120;
+				CURRENT_PROJECT_VERSION = 121;
 				DEVELOPMENT_ASSET_PATHS = "\"AutoDock/Preview Content\"";
 				DEVELOPMENT_TEAM = B3DFV278UN;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -333,7 +329,7 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 15.0;
-				MARKETING_VERSION = 1.2.0;
+				MARKETING_VERSION = 1.2.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.ghalldev.AutoDock;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -365,14 +361,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		D3DA13DC2D3C177300B6FFE0 /* XCRemoteSwiftPackageReference "Sparkle" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/sparkle-project/Sparkle";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 2.6.4;
-			};
-		};
 		D3FC452F2D39E30600C6AF7E /* XCRemoteSwiftPackageReference "LaunchAtLogin-Modern" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/sindresorhus/LaunchAtLogin-Modern";
@@ -384,11 +372,6 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		D3DA13DD2D3C177300B6FFE0 /* Sparkle */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = D3DA13DC2D3C177300B6FFE0 /* XCRemoteSwiftPackageReference "Sparkle" */;
-			productName = Sparkle;
-		};
 		D3FC45302D39E30600C6AF7E /* LaunchAtLogin */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = D3FC452F2D39E30600C6AF7E /* XCRemoteSwiftPackageReference "LaunchAtLogin-Modern" */;

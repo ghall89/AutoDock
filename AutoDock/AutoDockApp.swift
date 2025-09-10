@@ -1,4 +1,3 @@
-import Sparkle
 import SwiftUI
 
 @main
@@ -7,12 +6,6 @@ struct AutoDockApp: App {
 	@StateObject private var displayManager = DisplayManager()
 
 	@State private var showAlert: Bool = false
-
-	private let updaterController: SPUStandardUpdaterController
-
-	init() {
-		updaterController = SPUStandardUpdaterController(startingUpdater: true, updaterDelegate: nil, userDriverDelegate: nil)
-	}
 
 	var body: some Scene {
 		MenuBarExtra("AutoDock", systemImage: "menubar.dock.rectangle", content: {
@@ -26,7 +19,6 @@ struct AutoDockApp: App {
 				Button("About") {
 					NSApp.orderFrontStandardAboutPanel()
 				}
-				CheckForUpdatesView(updater: updaterController.updater)
 				Divider()
 				Link("Submit GitHub Issue",
 				     destination: URL(string: "https://github.com/ghall89/AutoDock/issues/new?template=Blank+issue")!)
