@@ -16,6 +16,7 @@ func runAppleScript(script: String) throws -> String? {
 
 	result = appleScript.executeAndReturnError(&error).stringValue
 	if let error = error {
+		print(error)
 		throw AppleScriptError.executionFailed(error.description)
 	}
 
