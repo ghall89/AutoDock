@@ -1,0 +1,34 @@
+{
+  "fill" : {
+    "automatic-gradient" : "extended-srgb:1.00000,0.55294,0.15686,1.00000"
+  },
+  "groups" : [
+    {
+      "blur-material" : null,
+      "layers" : [
+        {
+          "fill" : {
+            "automatic-gradient" : "extended-gray:1.00000,1.00000"
+          },
+          "image-name" : "magic-stick-3-svgrepo-com.svg",
+          "name" : "magic-stick-3-svgrepo-com"
+        }
+      ],
+      "shadow" : {
+        "kind" : "neutral",
+        "opacity" : 0.5
+      },
+      "specular" : true,
+      "translucency" : {
+        "enabled" : true,
+        "value" : 0.5
+      }
+    }
+  ],
+  "supported-platforms" : {
+    "circles" : [
+      "watchOS"
+    ],
+    "squares" : "shared"
+  }
+}

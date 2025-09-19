@@ -11,12 +11,13 @@ struct AutoDockApp: App {
 		MenuBarExtra("AutoDock", systemImage: "menubar.dock.rectangle", content: {
 			if displayManager.systemEventsPermitted == false {
 				Text("Unable to get dock status...")
-				Text("Please ensure AutoDock permission to automate system events.")
+				Text("Please ensure AutoDock has permission to automate system events.")
+				Button("Check System Privacy Settings", action: openPrivacySecuritySettings)
 				Divider()
 			}
-			Button("Settings...", action: openSettings)
+			Button("Settings...", systemImage: "gear", action: openSettings)
 			Menu("More") {
-				Button("About") {
+				Button("About", systemImage: "info.circle") {
 					NSApp.orderFrontStandardAboutPanel()
 				}
 				Divider()
