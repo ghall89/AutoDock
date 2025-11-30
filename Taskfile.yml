@@ -4,7 +4,7 @@ tasks:
   build:
     desc: "Build application"
     cmds:
-      - "mint run swift-bundler bundle"
+      - "mint run swift-bundler bundle --universal"
   run:
     desc: "Run application"
     cmds:
