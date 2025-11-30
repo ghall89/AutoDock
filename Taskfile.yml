@@ -1,10 +1,28 @@
 version: "3"
 
+dotenv:
+  - .env
+
+env:
+  APP_NAME: "AutoDock"
+  APP: ".build/bundler/AutoDock.app"
+  ENT: "./entitlements.plist"
+
 tasks:
   build:
     desc: "Build application"
     cmds:
       - "mint run swift-bundler bundle --universal"
+  build:release:
+    desc: "Build and codesign application for release"
+    cmds:
+      - "./codesign.sh"
+    deps:
+      - build
+  verify:
+    desc: "Verify code signing"
+    cmds:
+      - "codesign --verify .build/bundler/AutoDock.app"
   run:
     desc: "Run application"
     cmds:

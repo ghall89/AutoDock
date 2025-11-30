@@ -1,5 +1,3 @@
-
-
 # AutoDock
 
 ![GitHub](https://img.shields.io/github/license/ghall89/AutoDock) ![GitHub release (with filter)](https://img.shields.io/github/v/release/ghall89/AutoDock)
