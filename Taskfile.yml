@@ -1,0 +1,15 @@
+version: "3"
+
+tasks:
+  build:
+    desc: "Build application"
+    cmds:
+      - "mint run swift-bundler bundle"
+  run:
+    desc: "Run application"
+    cmds:
+      - "mint run swift-bundler run"
+  clean:
+    desc: "Clean build folder"
+    cmds:
+      - "rm -rf .build/"
