@@ -7,5 +7,6 @@ license = "MIT"
 category = "public.app-category.utility"
 icon = "./Sources/AppIcon.icns"
 
-[apps.AutoDock.plist]
+[apps.AutoDock.extra_plist_entries]
 NSAppleEventsUsageDescription = "Manage dock and menubar visibility."
+LSUIElement = "True"

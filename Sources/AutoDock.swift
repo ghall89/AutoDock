@@ -52,7 +52,9 @@ struct AutoDockApp: App {
                             action: {
                                 showAlert = false
                             })
-                    })
+                    }
+                )
+                .accentColor(.orange)
         }
         .windowResizability(.contentSize)
     }
