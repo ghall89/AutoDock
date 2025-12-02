@@ -5,7 +5,7 @@ dotenv:
 
 env:
   APP_PATH: ".build/bundler/AutoDock.app"
-  ZIP_PATH: "dist/AutoDock.zip"
+  DMG_PATH: "dist/AutoDock.dmg"
   ENTITLEMENTS: "./AutoDock.entitlements"
   BUNDLE_ID: "com.ghalldev.AutoDock"
 
@@ -22,15 +22,17 @@ tasks:
     desc: "Verify code signing"
     cmds:
       - "xcrun codesign -vvv --deep --strict $APP_PATH"
-  zip:
-    desc: "Zip application bundle for distribution"
+  disk-image:
+    desc: "Create disk image for distribution"
     cmds:
       - "mkdir -p dist"
-      - "zip -r $ZIP_PATH $APP_PATH"
+      - "create-dmg --app-drop-link 0 0 AutoDock.dmg .build/bundler"
+      - "mv AutoDock.dmg $DMG_PATH"
   notarize:
     desc: "Notarize application"
     cmds:
-      - "xcrun notarytool submit $ZIP_PATH --keychain-profile $KEYCHAIN_PROFILE --wait"
+      - "xcrun notarytool submit $DMG_PATH --keychain-profile $KEYCHAIN_PROFILE --wait"
+      - "xcrun stapler staple $DMG_PATH"
 
   debug:
     desc: "Run application in debug mode"
