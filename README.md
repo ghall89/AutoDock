@@ -32,16 +32,16 @@ When launching AutoDock for the first time, you will be asked by macOS to grant 
 ### Prerequisites
 
 - MacOS 15+
-- The Latest Version of Xcode
-- An [Apple Developer Account](https://developer.apple.com)
+- [task](https://taskfile.dev/)
+- [mint](https://github.com/yonaskolb/Mint)
+- [swift-bundler](https://swiftbundler.dev/documentation/swift-bundler)
+- [create-dmg](https://github.com/create-dmg/create-dmg) (optional - only required if you want to create a DMG)
 
 ### Instructions
 
 1. Clone this repo with `git clone git@github.com:ghall89/AutoDock.git`
-2. Open `AutoDock.xcodeproj` from the project directory
-3. Wait for package dependencies to download
-4. From the menubar, go to `Product → Archive`
-5. When archive is complete, click `Distribute App` and select `Direct Distribution`, `Debug`, or `Custom` and follow the prompts
+2. Navigate to the project directory in your terminal
+3. Run `task build`, this will output to `.build/bundler/AutoDock.app`
 
 ## Troubleshooting
 
@@ -54,4 +54,3 @@ It's likely AutoDock doesn't have permission to update the Dock's settings. Go t
 ## Dependencies
 
 - [LaunchAtLogin](https://github.com/sindresorhus/LaunchAtLogin-Modern)
-- [Sparkle](https://github.com/sparkle-project/Sparkle)

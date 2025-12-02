@@ -1,0 +1,56 @@
+version: "3"
+
+dotenv:
+  - .env
+
+env:
+  APP_PATH: ".build/bundler/AutoDock.app"
+  DMG_PATH: "dist/AutoDock.dmg"
+  ENTITLEMENTS: "./AutoDock.entitlements"
+  BUNDLE_ID: "com.ghalldev.AutoDock"
+
+tasks:
+  build:
+    desc: "Build application"
+    cmds:
+      - "mint run swift-bundler bundle --universal -c release"
+  sign:
+    desc: "Code sign application"
+    cmds:
+      - 'xcrun codesign -f -o runtime --entitlements $ENTITLEMENTS --timestamp -s"$NAME" $APP_PATH'
+  verify:
+    desc: "Verify code signing"
+    cmds:
+      - "xcrun codesign -vvv --deep --strict $APP_PATH"
+  disk-image:
+    desc: "Create disk image for distribution"
+    cmds:
+      - "mkdir -p dist"
+      - "create-dmg --app-drop-link 0 0 AutoDock.dmg .build/bundler"
+      - "mv AutoDock.dmg $DMG_PATH"
+  notarize:
+    desc: "Notarize application"
+    cmds:
+      - "xcrun notarytool submit $DMG_PATH --keychain-profile $KEYCHAIN_PROFILE --wait"
+      - "xcrun stapler staple $DMG_PATH"
+
+  debug:
+    desc: "Run application in debug mode"
+    cmds:
+      - "mint run swift-bundler run"
+
+  format:
+    desc: "Format code"
+    cmds:
+      - "swift format Sources --recursive"
+
+  clean:
+    desc: "Clean build folders"
+    cmds:
+      - "rm -rf .build/"
+      - "rm -rf dist/"
+
+  store:credentials:
+    desc: "Store credentials from .env in Keychain"
+    cmds:
+      - "xcrun notarytool store-credentials $KEYCHAIN_PROFILE --apple-id $APPLE_ID --team-id  $TEAM_ID --password $PASSWORD"

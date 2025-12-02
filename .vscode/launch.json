@@ -1,0 +1,24 @@
+{
+  "configurations": [
+    {
+      "type": "swift",
+      "request": "launch",
+      "args": [],
+      "cwd": "${workspaceFolder:AutoDock}",
+      "name": "Debug AutoDock",
+      "target": "AutoDock",
+      "configuration": "debug",
+      "preLaunchTask": "swift: Build Debug AutoDock"
+    },
+    {
+      "type": "swift",
+      "request": "launch",
+      "args": [],
+      "cwd": "${workspaceFolder:AutoDock}",
+      "name": "Release AutoDock",
+      "target": "AutoDock",
+      "configuration": "release",
+      "preLaunchTask": "swift: Build Release AutoDock"
+    }
+  ]
+}
