@@ -7,7 +7,6 @@ env:
   APP_PATH: ".build/bundler/AutoDock.app"
   DMG_PATH: "dist/AutoDock.dmg"
   ENTITLEMENTS: "./AutoDock.entitlements"
-  BUNDLE_ID: "com.ghalldev.AutoDock"
 
 tasks:
   build:
