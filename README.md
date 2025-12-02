@@ -33,14 +33,15 @@ When launching AutoDock for the first time, you will be asked by macOS to grant 
 
 - MacOS 15+
 - [task](https://taskfile.dev/)
-- [mint](https://github.com/yonaskolb/Mint) (Optional)
+- [mint](https://github.com/yonaskolb/Mint)
 - [swift-bundler](https://swiftbundler.dev/documentation/swift-bundler)
+- [create-dmg](https://github.com/create-dmg/create-dmg) (optional - only required if you want to create a DMG)
 
 ### Instructions
 
 1. Clone this repo with `git clone git@github.com:ghall89/AutoDock.git`
 2. Navigate to the project directory in your terminal
-3. Run `task build`, or run `task run` to build and run.
+3. Run `task build`, this will output to `.build/bundler/AutoDock.app`
 
 ## Troubleshooting
 
