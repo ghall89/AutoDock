@@ -4,30 +4,51 @@ dotenv:
   - .env
 
 env:
-  APP_NAME: "AutoDock"
-  APP: ".build/bundler/AutoDock.app"
-  ENT: "./entitlements.plist"
+  APP_PATH: ".build/bundler/AutoDock.app"
+  ZIP_PATH: "dist/AutoDock.zip"
+  ENTITLEMENTS: "./AutoDock.entitlements"
+  BUNDLE_ID: "com.ghalldev.AutoDock"
 
 tasks:
   build:
     desc: "Build application"
     cmds:
-      - "mint run swift-bundler bundle --universal"
-  build:release:
-    desc: "Build and codesign application for release"
+      - "mint run swift-bundler bundle --universal -c release"
+  sign:
+    desc: "Code sign application"
     cmds:
-      - "./codesign.sh"
-    deps:
-      - build
+      - 'xcrun codesign -f -o runtime --entitlements $ENTITLEMENTS --timestamp -s"$NAME" $APP_PATH'
   verify:
     desc: "Verify code signing"
     cmds:
-      - "codesign --verify .build/bundler/AutoDock.app"
-  run:
-    desc: "Run application"
+      - "xcrun codesign -vvv --deep --strict $APP_PATH"
+  zip:
+    desc: "Zip application bundle for distribution"
+    cmds:
+      - "mkdir -p dist"
+      - "zip -r $ZIP_PATH $APP_PATH"
+  notarize:
+    desc: "Notarize application"
+    cmds:
+      - "xcrun notarytool submit $ZIP_PATH --keychain-profile $KEYCHAIN_PROFILE --wait"
+
+  debug:
+    desc: "Run application in debug mode"
     cmds:
       - "mint run swift-bundler run"
+
+  format:
+    desc: "Format code"
+    cmds:
+      - "swift format Sources --recursive"
+
   clean:
-    desc: "Clean build folder"
+    desc: "Clean build folders"
     cmds:
       - "rm -rf .build/"
+      - "rm -rf dist/"
+
+  store:credentials:
+    desc: "Store credentials from .env in Keychain"
+    cmds:
+      - "xcrun notarytool store-credentials $KEYCHAIN_PROFILE --apple-id $APPLE_ID --team-id  $TEAM_ID --password $PASSWORD"

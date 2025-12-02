@@ -5,5 +5,7 @@
 <dict>
 	<key>com.apple.security.automation.apple-events</key>
 	<true/>
+	<key>com.apple.security.app-sandbox</key>
+	<true/>
 </dict>
 </plist>
