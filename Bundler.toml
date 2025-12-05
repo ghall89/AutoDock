@@ -9,4 +9,4 @@ icon = "./Sources/AppIcon.icns"
 
 [apps.AutoDock.extra_plist_entries]
 NSAppleEventsUsageDescription = "Manage dock and menubar visibility."
-LSUIElement = true
+LSUIElement = "true"

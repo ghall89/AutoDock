@@ -3,10 +3,11 @@ version: "3"
 dotenv:
   - .env
 
-env:
-  APP_PATH: ".build/bundler/AutoDock.app"
-  DMG_PATH: "dist/AutoDock.dmg"
-  ENTITLEMENTS: "./AutoDock.entitlements"
+vars:
+  APP_NAME: "AutoDock"
+  APP_PATH: ".build/bundler/{{.APP_NAME}}.app"
+  DMG_PATH: "dist/{{.APP_NAME}}.dmg"
+  ENTITLEMENTS: "./{{.APP_NAME}}.entitlements"
 
 tasks:
   build:
@@ -16,22 +17,22 @@ tasks:
   sign:
     desc: "Code sign application"
     cmds:
-      - 'xcrun codesign -f -o runtime --entitlements $ENTITLEMENTS --timestamp -s"$NAME" $APP_PATH'
+      - 'xcrun codesign -f -o runtime --entitlements {{.ENTITLEMENTS}} --timestamp -s"$NAME" {{.APP_PATH}}'
   verify:
     desc: "Verify code signing"
     cmds:
-      - "xcrun codesign -vvv --deep --strict $APP_PATH"
+      - "xcrun codesign -vvv --deep --strict {{.APP_PATH}}"
   disk-image:
     desc: "Create disk image for distribution"
     cmds:
       - "mkdir -p dist"
-      - "create-dmg --app-drop-link 0 0 AutoDock.dmg .build/bundler"
-      - "mv AutoDock.dmg $DMG_PATH"
+      - "create-dmg --app-drop-link 0 0 {{.APP_NAME}}.dmg .build/bundler"
+      - "mv {{.APP_NAME}}.dmg {{.DMG_PATH}}"
   notarize:
     desc: "Notarize application"
     cmds:
-      - "xcrun notarytool submit $DMG_PATH --keychain-profile $KEYCHAIN_PROFILE --wait"
-      - "xcrun stapler staple $DMG_PATH"
+      - "xcrun notarytool submit {{.DMG_PATH}} --keychain-profile $KEYCHAIN_PROFILE --wait"
+      - "xcrun stapler staple {{.DMG_PATH}}"
 
   debug:
     desc: "Run application in debug mode"
