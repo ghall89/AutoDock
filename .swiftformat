@@ -32,7 +32,7 @@
 --hexliteralcase uppercase
 --ifdef indent
 --importgrouping alpha
---indent 4
+--indent 2
 --indentcase true
 --indentstrings true
 --lifecycle

@@ -1,0 +1,5 @@
+brew 'create-dmg'
+brew 'git'
+brew 'go-task'
+brew 'mint'
+brew 'swiftformat'
