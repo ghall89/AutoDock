@@ -1,84 +1,66 @@
---acronyms ID,URL,UUID
---allman false
---anonymousforeach convert
---assetliterals visual-width
---asynccapturing
---beforemarks
---binarygrouping 4,8
---categorymark "MARK: %c"
---classthreshold 0
---closingparen balanced
---closurevoid remove
---commas always
---conflictmarkers reject
---decimalgrouping 3,6
---elseposition same-line
---emptybraces no-space
---enumnamespaces always
---enumthreshold 0
---exponentcase lowercase
---exponentgrouping disabled
---extensionacl on-extension
---extensionlength 0
---extensionmark "MARK: - %t + %c"
---fractiongrouping disabled
---fragment false
---funcattributes preserve
---generictypes
---groupedextension "MARK: %c"
---guardelse auto
---header ignore
---hexgrouping 4,8
---hexliteralcase uppercase
---ifdef indent
---importgrouping alpha
---indent 4
---indentcase true
---indentstrings true
---lifecycle
---lineaftermarks true
---linebreaks lf
---markcategories true
---markextensions always
---marktypes always
---maxwidth none
---modifierorder
---nevertrailing
---nospaceoperators
---nowrapoperators
---octalgrouping 4,8
---onelineforeach ignore
---operatorfunc spaced
---organizetypes actor,class,enum,struct
---patternlet hoist
---ranges spaced
---redundanttype infer-locals-only
---self remove
---selfrequired
---semicolons inline
---shortoptionals except-properties
---smarttabs enabled
---someany true
---stripunusedargs always
---structthreshold 0
---tabwidth 2
---throwcapturing
---trailingclosures
---trimwhitespace always
---typeattributes preserve
---typeblanklines remove
---typemark "MARK: - %t"
---varattributes preserve
---voidtype void
---wraparguments preserve
---wrapcollections preserve
---wrapconditions preserve
---wrapeffects preserve
---wrapenumcases always
---wrapparameters default
---wrapreturntype preserve
---wrapternary default
---wraptypealiases preserve
---xcodeindentation disabled
---yodaswap always
+--disable hoistAwait
+--disable hoistTry
+--enable acronyms
+--enable blankLinesAfterGuardStatements
+--enable blankLinesBetweenImports
+--enable blockComments
+--enable docComments
+--enable emptyExtensions
+--enable environmentEntry
 --enable isEmpty
+--enable noExplicitOwnership
+--enable noForceTryInTests
+--enable noForceUnwrapInTests
+--enable noGuardInTests
+--enable organizeDeclarations
+--enable preferFinalClasses
+--enable preferSwiftTesting
+--enable privateStateVariables
+--enable propertyTypes
+--enable redundantAsync
+--enable redundantEquatable
+--enable redundantMemberwiseInit
+--enable redundantProperty
+--enable redundantThrows
+--enable singlePropertyPerLine
+--enable sortSwitchCases
+--enable unusedPrivateDeclarations
+--enable urlMacro
+--enable wrapConditionalBodies
+--enable wrapEnumCases
+--enable wrapMultilineConditionalAssignment
+--enable wrapMultilineFunctionChains
+--enable wrapSwitchCases
+--acronyms ADAM,ADI,AE,ANSI,API,CD,CEO,CF,CI,CK,CPU,DAV,DOS,DS,DSID,DVD,EOF,FAQ,FAT,FD,FTP,GB,GID,GUI,GUID,HTML,HTTP,HTTPS,ID,IFS,ISO,JSON,KB,MAS,MD,MDM,MDS,MIB,MIT,NS,OS,OSX,PDF,PR,QL,SB,SDK,SHA,SS,SSH,STDQ,STDRDL,UDF,UI,UID,URL,US,UTF,UUID,VPP,XML,XPC,YAML
+--allow-partial-wrapping false
+--complex-attributes prev-line
+--computed-var-attributes prev-line
+--conditional-assignment always
+--exponent-grouping enabled
+--file-macro "#fileID"
+--fraction-grouping enabled
+--func-attributes prev-line
+--hex-literal-case lowercase
+--ifdef no-indent
+--indent tab
+--indent-strings true
+--line-after-marks false
+--mark-categories false
+--max-width 120
+--organization-mode type
+--organize-types actor,class,enum,extension,struct
+--property-types inferred
+--ranges no-space
+--redundant-async always
+--redundant-throws always
+--semicolons never
+--short-optionals always
+--single-line-for-each convert
+--stored-var-attributes same-line
+--tab-width 2
+--type-attributes prev-line
+--type-body-marks remove
+--wrap-effects never
+--wrap-return-type never
+--wrap-ternary before-operators
+--indent-case true

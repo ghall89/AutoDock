@@ -42,7 +42,7 @@ tasks:
   format:
     desc: "Format code"
     cmds:
-      - "swift format Sources --recursive"
+      - "swiftformat ."
 
   clean:
     desc: "Clean build folders"
