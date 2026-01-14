@@ -1,11 +1,7 @@
---disable hoistAwait
---disable hoistTry
 --enable acronyms
 --enable blankLinesAfterGuardStatements
 --enable blankLinesBetweenImports
 --enable blockComments
---enable docComments
---enable emptyExtensions
 --enable environmentEntry
 --enable isEmpty
 --enable noExplicitOwnership
@@ -24,7 +20,6 @@
 --enable redundantThrows
 --enable singlePropertyPerLine
 --enable sortSwitchCases
---enable unusedPrivateDeclarations
 --enable urlMacro
 --enable wrapConditionalBodies
 --enable wrapEnumCases
