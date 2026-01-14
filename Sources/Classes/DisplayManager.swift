@@ -18,23 +18,27 @@ final class DisplayManager: ObservableObject {
 	private var cancellables = Set<AnyCancellable>()
 
 	init() {
-		setupDisplayChangeListener()
-		detectDisplay()
+		setupNotificationListeners()
+		checkDisplays()
 	}
 
-	private func setupDisplayChangeListener() {
-		NotificationCenter.default
+	private func setupNotificationListeners() {
+		let displayChangeNotification = NotificationCenter.default
 			.publisher(for: NSApplication.didChangeScreenParametersNotification)
-			.receive(on: RunLoop.main)
+
+		let wakeFromSleepNotification = NotificationCenter.default.publisher(for: NSWorkspace.didWakeNotification)
+
+		displayChangeNotification
+			.merge(with: wakeFromSleepNotification)
 			.debounce(for: .milliseconds(250), scheduler: RunLoop.main)
 			.sink { [weak self] _ in
 				print("Display configuration changed (debounced).")
-				self?.detectDisplay()
+				self?.checkDisplays()
 			}
 			.store(in: &cancellables)
 	}
 
-	private func detectDisplay() {
+	private func checkDisplays() {
 		guard !NSScreen.screens.isEmpty else {
 			print("No displays are connected.")
 			connectedDisplays = []
