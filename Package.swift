@@ -3,17 +3,20 @@
 import PackageDescription
 
 let package = Package(
-    name: "AutoDock",
-    platforms: [.macOS(.v15)],
-    dependencies: [
-        .package(url: "https://github.com/sindresorhus/LaunchAtLogin-Modern", from: "1.1.0")
-    ],
-    targets: [
-        .executableTarget(
-            name: "AutoDock",
-            dependencies: [
-                .product(name: "LaunchAtLogin", package: "LaunchAtLogin-Modern")
-            ]
-        )
-    ]
+	name: "AutoDock",
+	platforms: [.macOS(.v26)],
+	dependencies: [
+		.package(url: "https://github.com/sindresorhus/LaunchAtLogin-Modern", from: "1.1.0"),
+	],
+	targets: [
+		.executableTarget(
+			name: "AutoDock",
+			dependencies: [
+				.product(name: "LaunchAtLogin", package: "LaunchAtLogin-Modern"),
+			],
+			resources: [
+				.process("AppIcon.icns"),
+			],
+		),
+	],
 )
