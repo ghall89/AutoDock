@@ -9,7 +9,6 @@ final class DisplayManager: ObservableObject {
 	}
 
 	@AppStorage("minResolutionToShowDock") var minResolutionToShowDock = CGRect.zero
-	@AppStorage("onlyOnPrimaryDisplay") var onlyOnPrimaryDisplay = true
 	@AppStorage("alsoToggleMenubar") var alsoToggleMenubar = false
 
 	@Published var connectedDisplays = [DisplayInfo]()
