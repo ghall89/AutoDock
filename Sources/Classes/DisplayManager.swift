@@ -14,6 +14,8 @@ final class DisplayManager: ObservableObject {
 	@Published var connectedDisplays = [DisplayInfo]()
 	@Published var systemEventsPermitted = true
 
+	private let dockPreferences = DockPreferencesManager()
+
 	private var cancellables = Set<AnyCancellable>()
 
 	init() {
@@ -78,50 +80,9 @@ final class DisplayManager: ObservableObject {
 	}
 
 	private func handleVisibility(hidden: Bool) {
-		toggleVisibility(hidden: hidden, preference: .autohide)
+		dockPreferences?.setPreference(.autohide, to: hidden)
 		if alsoToggleMenubar {
-			toggleVisibility(hidden: hidden, preference: .autohideMenuBar)
+			dockPreferences?.setPreference(.autohideMenuBar, to: hidden)
 		}
-	}
-
-	private func toggleVisibility(hidden: Bool, preference: DockPreference) {
-		// don't bother updating dock autohide setting if it matches the new value
-		let currentAutoHidePref = getCurrentPreference(preference)
-
-		if currentAutoHidePref == nil {
-			return
-		}
-
-		if currentAutoHidePref != hidden {
-			let script = """
-				tell application "System Events"
-					set \(preference.rawValue) of dock preferences to \(hidden.description)
-				end tell
-				"""
-
-			do {
-				_ = try runAppleScript(script: script)
-			} catch {
-				print(error)
-			}
-		}
-	}
-
-	private func getCurrentPreference(_ preference: DockPreference) -> Bool? {
-		let script = """
-			tell application "System Events"
-				get \(preference.rawValue) of dock preferences
-			end tell
-			"""
-
-		do {
-			if let boolString = try runAppleScript(script: script) {
-				return boolString == "true"
-			}
-		} catch {
-			systemEventsPermitted = false
-		}
-
-		return nil
 	}
 }
