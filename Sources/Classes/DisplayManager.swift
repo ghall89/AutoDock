@@ -14,7 +14,7 @@ final class DisplayManager: ObservableObject {
 	@Published var connectedDisplays = [DisplayInfo]()
 	@Published var systemEventsPermitted = true
 
-	private let dockPreferences = DockPreferencesManager()
+	private let systemEvents = SystemEventsManager()
 
 	private var cancellables = Set<AnyCancellable>()
 
@@ -80,9 +80,9 @@ final class DisplayManager: ObservableObject {
 	}
 
 	private func handleVisibility(hidden: Bool) {
-		dockPreferences?.setPreference(.autohide, to: hidden)
+		systemEvents?.setDockPreference(.autohide, to: hidden)
 		if alsoToggleMenubar {
-			dockPreferences?.setPreference(.autohideMenuBar, to: hidden)
+			systemEvents?.setDockPreference(.autohideMenuBar, to: hidden)
 		}
 	}
 }

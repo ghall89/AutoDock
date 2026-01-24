@@ -1,24 +1,12 @@
 import ScriptingBridge
 
-final class DockPreferencesManager {
+extension SystemEventsManager {
 	enum DockPreferenceKey: String {
 		case autohide
 		case autohideMenuBar
 	}
 
-	private let systemEvents: SystemEventsApplication
-
-	init?() {
-		guard let systemEvents = SBApplication(bundleIdentifier: "com.apple.systemevents") as? SystemEventsApplication
-		else {
-			print("Failed to access System Events")
-			return nil
-		}
-
-		self.systemEvents = systemEvents
-	}
-
-	func getPreference(_ key: DockPreferenceKey) -> Bool {
+	func getDockPreference(_ key: DockPreferenceKey) -> Bool {
 		guard let dock = systemEvents.dockPreferences as? SBObject else {
 			return false
 		}
@@ -29,12 +17,12 @@ final class DockPreferencesManager {
 		return value
 	}
 
-	func setPreference(_ key: DockPreferenceKey, to value: Bool) {
+	func setDockPreference(_ key: DockPreferenceKey, to value: Bool) {
 		guard let dock = systemEvents.dockPreferences as? SBObject else {
 			return
 		}
 
-		let currentValue = getPreference(key)
+		let currentValue = getDockPreference(key)
 
 		if currentValue == value {
 			return
