@@ -1,0 +1,17 @@
+name: SwiftFormat
+
+on:
+  - push
+  - pull_request
+
+jobs:
+  check:
+    name: SwiftFormat Lint
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Run SwiftFormat Lint
+        run: swiftformat --lint .
