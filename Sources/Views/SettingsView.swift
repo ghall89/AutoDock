@@ -2,10 +2,10 @@ import LaunchAtLogin
 import SwiftUI
 
 struct SettingsView: View {
-	@AppStorage("minResolutionToShowDock") private var minResolutionToShowDock = CGRect.zero
 	@AppStorage("alsoToggleMenubar") var alsoToggleMenubar = false
-
 	@EnvironmentObject var displayManager: DisplayManager
+
+	@AppStorage("minResolutionToShowDock") private var minResolutionToShowDock = CGRect.zero
 
 	var body: some View {
 		Form {
@@ -49,7 +49,8 @@ struct SettingsView: View {
 						Spacer()
 						Image(systemName: "circle.fill")
 							.foregroundStyle(
-								displayManager.systemEventsPermitted ? Color.green : Color.red)
+								displayManager.systemEventsPermitted ? Color.green : Color.red,
+							)
 					}
 				}
 				Text(

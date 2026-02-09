@@ -2,8 +2,8 @@ import AppKit
 
 func openPrivacySecuritySettings() {
 	if let url = URL(
-		string: "x-apple.systempreferences:com.apple.preference.security?Privacy_Automation")
-	{
+		string: "x-apple.systempreferences:com.apple.preference.security?Privacy_Automation",
+	) {
 		NSWorkspace.shared.open(url)
 	}
 }
